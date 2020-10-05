@@ -1,5 +1,5 @@
 //
-//  Utilities.swift
+//  AesUtilities.swift
 //  InformationSecurity_AES
 //
 //  Created by Oleksii Andriushchenko on 04.10.2020.
@@ -11,6 +11,18 @@ extension Array {
   public mutating func shift(by index: Int) {
     let adjustedIndex = index % self.count
     self = Array(self[adjustedIndex..<self.count] + self[0..<adjustedIndex])
+  }
+
+  public func shifted(by index: Int) -> Self {
+    let adjustedIndex = index % self.count
+    return Array(self[adjustedIndex..<self.count] + self[0..<adjustedIndex])
+  }
+}
+
+extension Array where Element == UInt8 {
+  public func shiftedToLeft(count: Int) -> Self {
+    let adjustedIndex = count % self.count
+    return Array(self[adjustedIndex..<self.count] + Array.init(repeating: 0, count: count))
   }
 }
 

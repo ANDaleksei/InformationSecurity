@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02557CF9252A54950055E92A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02557CF8252A54950055E92A /* Utilities.swift */; };
+		02557CF9252A54950055E92A /* AesUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02557CF8252A54950055E92A /* AesUtilities.swift */; };
 		029B50D925227C4C00246FBF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029B50D825227C4C00246FBF /* main.swift */; };
-		02B376D9252663810035BEA4 /* Encode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B376D8252663810035BEA4 /* Encode.swift */; };
+		02B376D9252663810035BEA4 /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B376D8252663810035BEA4 /* AES.swift */; };
 		02B376DC252663ED0035BEA4 /* AESError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B376DB252663ED0035BEA4 /* AESError.swift */; };
+		02E5894B252B09C7006255E3 /* Kalyna.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E5894A252B09C7006255E3 /* Kalyna.swift */; };
+		02E5894E252B1050006255E3 /* KalynaUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E5894D252B1050006255E3 /* KalynaUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,11 +28,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		02557CF8252A54950055E92A /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		02557CF8252A54950055E92A /* AesUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AesUtilities.swift; sourceTree = "<group>"; };
 		029B50D525227C4C00246FBF /* InformationSecurity_AES */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = InformationSecurity_AES; sourceTree = BUILT_PRODUCTS_DIR; };
 		029B50D825227C4C00246FBF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		02B376D8252663810035BEA4 /* Encode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encode.swift; sourceTree = "<group>"; };
+		02B376D8252663810035BEA4 /* AES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
 		02B376DB252663ED0035BEA4 /* AESError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESError.swift; sourceTree = "<group>"; };
+		02E5894A252B09C7006255E3 /* Kalyna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kalyna.swift; sourceTree = "<group>"; };
+		02E5894D252B1050006255E3 /* KalynaUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KalynaUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +68,10 @@
 			isa = PBXGroup;
 			children = (
 				029B50D825227C4C00246FBF /* main.swift */,
-				02B376D8252663810035BEA4 /* Encode.swift */,
-				02557CF8252A54950055E92A /* Utilities.swift */,
+				02B376D8252663810035BEA4 /* AES.swift */,
+				02557CF8252A54950055E92A /* AesUtilities.swift */,
+				02E5894A252B09C7006255E3 /* Kalyna.swift */,
+				02E5894D252B1050006255E3 /* KalynaUtilities.swift */,
 				02B376DB252663ED0035BEA4 /* AESError.swift */,
 			);
 			path = InformationSecurity_AES;
@@ -128,10 +134,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02E5894E252B1050006255E3 /* KalynaUtilities.swift in Sources */,
 				029B50D925227C4C00246FBF /* main.swift in Sources */,
+				02E5894B252B09C7006255E3 /* Kalyna.swift in Sources */,
 				02B376DC252663ED0035BEA4 /* AESError.swift in Sources */,
-				02557CF9252A54950055E92A /* Utilities.swift in Sources */,
-				02B376D9252663810035BEA4 /* Encode.swift in Sources */,
+				02557CF9252A54950055E92A /* AesUtilities.swift in Sources */,
+				02B376D9252663810035BEA4 /* AES.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
