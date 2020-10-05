@@ -19,13 +19,6 @@ extension Array {
   }
 }
 
-extension Array where Element == UInt8 {
-  public func shiftedToLeft(count: Int) -> Self {
-    let adjustedIndex = count % self.count
-    return Array(self[adjustedIndex..<self.count] + Array.init(repeating: 0, count: count))
-  }
-}
-
 func multiplyBy2(byte: UInt8) -> UInt8 {
   if byte >= 128 {
     return (byte << 1) ^ 0x1B
@@ -70,13 +63,6 @@ func debug(data: [UInt8]) -> String {
     result += String(format: "%02x", byte) + " "
   }
   return result
-}
-
-private let isDebug = false
-func debugPrint(_ text: String) {
-  if isDebug {
-    print(text)
-  }
 }
 
 let Rcon: [[UInt8]] = [

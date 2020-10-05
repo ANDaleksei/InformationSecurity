@@ -10,9 +10,7 @@ import Foundation
 final class KalynaAlgorithm {
 
   struct Config {
-    // 128, 256, 512
     let blockSize: Int
-    // 128, 256, 512
     let keyLength: Int
     let rounds: Int
     let rows: Int
@@ -39,7 +37,6 @@ final class KalynaAlgorithm {
   }
 
   private let config: Config
-  // rounds x rows x columns
   private var keys: [[[UInt8]]] = []
   private lazy var vConstant: [UInt8] = Array(0..<config.rows).flatMap { _ in [0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00] }
 
@@ -65,20 +62,20 @@ final class KalynaAlgorithm {
     self.keys = keyExpansion(key: key.map { $0 })
   }
 
-  func encode(text: String) -> Data {
+  func encrypt(text: String) -> Data {
     guard let data = text.data(using: .utf8) else {
       fatalError("Can't get data from input text")
     }
 
-    return encode(data: data)
+    return encrypt(data: data)
   }
 
-  func encode(data: Data) -> Data {
+  func encrypt(data: Data) -> Data {
     var iter = 0
     var result = Data()
     while (config.blockSize / 8) * (iter + 1) <= data.count  {
       do {
-        let output = try encodeBlock(
+        let output = try encryptBlock(
           input: data[((config.blockSize / 8) * iter)..<((config.blockSize / 8) * (iter + 1))]
         )
         result.append(output)
@@ -92,16 +89,16 @@ final class KalynaAlgorithm {
     return result
   }
 
-  func decode(data: Data) -> String {
-    return String(data: decode(data: data), encoding: .utf8)!
+  func decrypt(data: Data) -> String {
+    return String(data: decrypt(data: data), encoding: .utf8)!
   }
 
-  func decode(data: Data) -> Data {
+  func decrypt(data: Data) -> Data {
     var iter = 0
     var result = Data()
     while 16 * (iter + 1) <= data.count  {
       do {
-        let output = try decodeBlock(input: Data(Array(data[(16 * iter)..<(16 * (iter + 1))])))
+        let output = try decryptBlock(input: Data(Array(data[(16 * iter)..<(16 * (iter + 1))])))
         result.append(output)
       } catch {
         fatalError(error.localizedDescription)
@@ -113,9 +110,9 @@ final class KalynaAlgorithm {
     return result
   }
 
-  // MARK: Encode
+  // MARK: Encrypt
 
-  private func encodeBlock(input: Data) throws -> Data {
+  private func encryptBlock(input: Data) throws -> Data {
     guard input.count == config.blockSize / 8 else {
       throw AESError.badInput("Input should be exactly \(config.blockSize) bits")
     }
@@ -221,9 +218,9 @@ final class KalynaAlgorithm {
     return Data(state.flatMap { $0 })
   }
 
-  // MARK: - Decode
+  // MARK: - Decrypt
 
-  private func decodeBlock(input: Data) throws -> Data {
+  private func decryptBlock(input: Data) throws -> Data {
     guard input.count == 16 else {
       throw AESError.badInput("Input should be exactly 16 bytes")
     }
@@ -243,8 +240,6 @@ final class KalynaAlgorithm {
     }
 
     substractModulo2in64(state: &state, key: keys[0])
-//    print("Round \(0): ", terminator: "")
-//    printTable(table: state)
 
     let output = createOutput(from: state)
     return output

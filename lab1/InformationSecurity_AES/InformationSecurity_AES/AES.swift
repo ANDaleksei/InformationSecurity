@@ -1,5 +1,5 @@
 //
-//  Encode.swift
+//  AES.swift
 //  InformationSecurity_AES
 //
 //  Created by Oleksii Andriushchenko on 01.10.2020.
@@ -28,20 +28,20 @@ final class AesAlgorithm {
     self.words = keyExpansion(key: key.map { $0 })
   }
 
-  func encode(text: String) -> Data {
+  func encrypt(text: String) -> Data {
     guard let data = text.data(using: .utf8) else {
       fatalError("Can't get data from input text")
     }
 
-    return encode(data: data)
+    return encrypt(data: data)
   }
 
-  func encode(data: Data) -> Data {
+  func encrypt(data: Data) -> Data {
     var iter = 0
     var result = Data()
     while 16 * (iter + 1) <= data.count  {
       do {
-        let output = try encodeBlock(input: data[(16 * iter)..<(16 * (iter + 1))])
+        let output = try encryptBlock(input: Data(data[(16 * iter)..<(16 * (iter + 1))]))
         result.append(output)
       } catch {
         fatalError(error.localizedDescription)
@@ -53,16 +53,16 @@ final class AesAlgorithm {
     return result
   }
 
-  func decode(data: Data) -> String {
-    return String(data: decode(data: data), encoding: .utf8)!
+  func decrypt(data: Data) -> String {
+    return String(data: decrypt(data: data), encoding: .utf8)!
   }
 
-  func decode(data: Data) -> Data {
+  func decrypt(data: Data) -> Data {
     var iter = 0
     var result = Data()
     while 16 * (iter + 1) <= data.count  {
       do {
-        let output = try decodeBlock(input: Data(Array(data[(16 * iter)..<(16 * (iter + 1))])))
+        let output = try decryptBlock(input: Data(Array(data[(16 * iter)..<(16 * (iter + 1))])))
         result.append(output)
       } catch {
         fatalError(error.localizedDescription)
@@ -74,9 +74,9 @@ final class AesAlgorithm {
     return result
   }
 
-  // MARK: Encode
+  // MARK: Encrypt
 
-  private func encodeBlock(input: Data) throws -> Data {
+  private func encryptBlock(input: Data) throws -> Data {
     guard input.count == 16 else {
       throw AESError.badInput("Input should be exactly 16 bytes")
     }
@@ -169,17 +169,17 @@ final class AesAlgorithm {
   }
 
 
-  func SboxSubstitution(byte: UInt8) -> UInt8 {
+  private func SboxSubstitution(byte: UInt8) -> UInt8 {
     return box[Int(byte)]
   }
 
-  func rotWord(word: [UInt8]) -> [UInt8] {
+  private func rotWord(word: [UInt8]) -> [UInt8] {
     return [word[1], word[2], word[3], word[0]]
   }
 
-  // MARK: - Decode
+  // MARK: - Decrypt
 
-  private func decodeBlock(input: Data) throws -> Data {
+  private func decryptBlock(input: Data) throws -> Data {
     guard input.count == 16 else {
       throw AESError.badInput("Input should be exactly 16 bytes")
     }
