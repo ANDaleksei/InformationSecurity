@@ -7,24 +7,24 @@
 
 import Foundation
 
-enum Constants {
-  // number of columns
-  static let Nb = 4
-  // number of rounds
-  static let Nr = 10
-  //
-  static let Nk = 4
-}
-
 final class AesAlgorithm {
 
+  struct Config {
+    let columns = 4
+    let rounds: Int
+    let words: Int
+  }
+
+  private let config: Config
   private var words: [[UInt8]] = []
 
-  init(key: String) {
+  init(key: String, config: Config = .init(rounds: 10, words: 4)) {
+    self.config = config
     self.words = keyExpansion(key: key.data(using: .utf8)!.map { $0 })
   }
 
-  init(key: Data) {
+  init(key: Data, config: Config = .init(rounds: 10, words: 4)) {
+    self.config = config
     self.words = keyExpansion(key: key.map { $0 })
   }
 
@@ -82,20 +82,20 @@ final class AesAlgorithm {
     }
 
     var state = createState(from: input)
-    addRoundKey(state: &state, words: Array(words[0..<Constants.Nb]))
+    addRoundKey(state: &state, words: Array(words[0..<config.columns]))
 
-    for round in 1..<(Constants.Nr) {
+    for round in 1..<(config.rounds) {
       subBytes(state: &state)
       shiftRows(state: &state)
       mixColumns(state: &state)
-      addRoundKey(state: &state, words: Array(words[(round * Constants.Nb)..<((round + 1) * Constants.Nb)]))
+      addRoundKey(state: &state, words: Array(words[(round * config.columns)..<((round + 1) * config.columns)]))
     }
 
     subBytes(state: &state)
     shiftRows(state: &state)
     addRoundKey(
       state: &state,
-      words: Array(words[(Constants.Nr * Constants.Nb)..<((Constants.Nr + 1) * Constants.Nb)])
+      words: Array(words[(config.rounds * config.columns)..<((config.rounds + 1) * config.columns)])
     )
 
     let output = createOutput(from: state)
@@ -187,20 +187,20 @@ final class AesAlgorithm {
     var state = createState(from: input)
     addRoundKey(
       state: &state,
-      words: Array(words[(Constants.Nr * Constants.Nb)..<((Constants.Nr + 1) * Constants.Nb)])
+      words: Array(words[(config.rounds * config.columns)..<((config.rounds + 1) * config.columns)])
     )
 
-    for round in 1..<Constants.Nr {
-      let invRound = Constants.Nr - round
+    for round in 1..<config.rounds {
+      let invRound = config.rounds - round
       invShiftRows(state: &state)
       invSubBytes(state: &state)
-      addRoundKey(state: &state, words: Array(words[(invRound * Constants.Nb)..<((invRound + 1) * Constants.Nb)]))
+      addRoundKey(state: &state, words: Array(words[(invRound * config.columns)..<((invRound + 1) * config.columns)]))
       invMixColumns(state: &state)
     }
 
     invShiftRows(state: &state)
     invSubBytes(state: &state)
-    addRoundKey(state: &state, words: Array(words[0..<Constants.Nb]))
+    addRoundKey(state: &state, words: Array(words[0..<config.columns]))
 
     let output = createOutput(from: state)
     return output
@@ -250,24 +250,24 @@ final class AesAlgorithm {
 
   private func keyExpansion(key: [UInt8]) -> [[UInt8]] {
 
-    var words = [[UInt8]](repeating: [UInt8](repeating: 0, count: Constants.Nk), count: Constants.Nb * (Constants.Nr + 1))
+    var words = [[UInt8]](repeating: [UInt8](repeating: 0, count: config.words), count: config.columns * (config.rounds + 1))
 
     var iter = 0
-    while iter < Constants.Nk {
+    while iter < config.words {
       words[iter] = [key[4 * iter], key[4 * iter + 1], key[4 * iter + 2], key[4 * iter + 3]]
       iter += 1
     }
 
-    iter = Constants.Nk
+    iter = config.words
 
-    while iter < Constants.Nb * (Constants.Nr + 1) {
+    while iter < config.columns * (config.rounds + 1) {
       var word = words[iter - 1]
-      if iter % Constants.Nk == 0 {
-        word = xor(lhs: SboxSubstitution(word: rotWord(word: word)), rhs: Rcon[iter / Constants.Nk])
-      } else if Constants.Nk > 6 && iter % Constants.Nk == 4 {
+      if iter % config.words == 0 {
+        word = xor(lhs: SboxSubstitution(word: rotWord(word: word)), rhs: Rcon[iter / config.words])
+      } else if config.words > 6 && iter % config.words == 4 {
         word = SboxSubstitution(word: word)
       }
-      words[iter] = xor(lhs: words[iter - Constants.Nk], rhs: word)
+      words[iter] = xor(lhs: words[iter - config.words], rhs: word)
       iter += 1
     }
 

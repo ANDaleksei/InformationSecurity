@@ -76,9 +76,11 @@ final class KalynaAlgorithm {
   func encode(data: Data) -> Data {
     var iter = 0
     var result = Data()
-    while 16 * (iter + 1) <= data.count  {
+    while (config.blockSize / 8) * (iter + 1) <= data.count  {
       do {
-        let output = try encodeBlock(input: data[(16 * iter)..<(16 * (iter + 1))])
+        let output = try encodeBlock(
+          input: data[((config.blockSize / 8) * iter)..<((config.blockSize / 8) * (iter + 1))]
+        )
         result.append(output)
       } catch {
         fatalError(error.localizedDescription)
