@@ -44,11 +44,23 @@ final class KalynaAlgorithm {
   private lazy var vConstant: [UInt8] = Array(0..<config.rows).flatMap { _ in [0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00] }
 
   init(key: String, config: Config = .config1) {
+    guard let keyData = key.data(using: .utf8) else {
+      fatalError("Can't get data from key")
+    }
+
+    guard keyData.count * 8 == config.keyLength else {
+      fatalError("Wrong key size. Actual: \(keyData.count * 8), expected: \(config.keyLength)")
+    }
+
     self.config = config
-    self.keys = keyExpansion(key: key.data(using: .utf8)!.map { $0 })
+    self.keys = keyExpansion(key: keyData.map { $0 })
   }
 
   init(key: Data, config: Config = .config1) {
+    guard key.count * 8 == config.keyLength else {
+      fatalError("Wrong key size. Actual: \(key.count * 8), expected: \(config.keyLength)")
+    }
+
     self.config = config
     self.keys = keyExpansion(key: key.map { $0 })
   }
@@ -107,8 +119,6 @@ final class KalynaAlgorithm {
     }
 
     var state = createTable(from: input.map { $0 })
-    print("Start")
-    printTable(table: state)
     addModulo2in64(state: &state, key: keys[0])
 
     for round in 1..<config.rounds {
@@ -122,9 +132,6 @@ final class KalynaAlgorithm {
     shiftRows(state: &state)
     linearTransformation(state: &state)
     addModulo2in64(state: &state, key: keys[config.rounds])
-
-    print("End")
-    printTable(table: state)
 
     let output = createOutput(from: state)
     return output
@@ -141,8 +148,9 @@ final class KalynaAlgorithm {
     var isOverflow = false
     zip(lhs, rhs).forEach { left, right in
       let (value, overflow) = left.addingReportingOverflow(right)
-      result.append(isOverflow ? value + 1 : value)
-      isOverflow = overflow
+      let (value1, overflow1) = value.addingReportingOverflow(isOverflow ? 1 : 0)
+      result.append(value1)
+      isOverflow = overflow || overflow1
     }
     return result
   }
@@ -158,7 +166,7 @@ final class KalynaAlgorithm {
   private func shiftRows(state: inout [[UInt8]]) {
     for columnIndex in 0..<8 {
       let shift = (columnIndex * config.blockSize) / 512
-      let column = state.map { $0[columnIndex] }.shifted(by: shift)
+      let column = state.map { $0[columnIndex] }.shifted(by: state.count - shift % state.count)
       for row in 0..<state.count {
         state[row][columnIndex] = column[row]
       }
@@ -224,8 +232,8 @@ final class KalynaAlgorithm {
     invShiftRows(state: &state)
     invSubBytes(state: &state)
 
-    for round in 1..<Constants.Nr {
-      let invRound = Constants.Nr - round
+    for round in 1..<config.rounds {
+      let invRound = config.rounds - round
       addModulo2(state: &state, key: keys[invRound])
       invLinearTransformation(state: &state)
       invShiftRows(state: &state)
@@ -233,8 +241,8 @@ final class KalynaAlgorithm {
     }
 
     substractModulo2in64(state: &state, key: keys[0])
-    print("End")
-    printTable(table: state)
+//    print("Round \(0): ", terminator: "")
+//    printTable(table: state)
 
     let output = createOutput(from: state)
     return output
@@ -289,7 +297,7 @@ final class KalynaAlgorithm {
   // MARK: - Key expansion
 
   private func keyExpansion(key: [UInt8]) -> [[[UInt8]]] {
-    let intermediateKey = createIntermediateKey()
+    let intermediateKey = createIntermediateKey(key: key)
 
     var keys: [[[UInt8]]] = []
 
@@ -309,7 +317,13 @@ final class KalynaAlgorithm {
       if config.blockSize == config.keyLength {
         return createTable(from: key.shifted(by: 4 * index).map { $0 })
       } else {
-        return createTable(from: key.map { $0 })
+        if index % 4 == 0 {
+          let halfKey = Array(key.shifted(by: 2 * index)[0..<(key.count / 2)])
+          return createTable(from: halfKey.map { $0 })
+        } else {
+          let halfKey = Array(key.shifted(by: 8 * (index / 4))[(key.count / 2)..<key.count])
+          return createTable(from: halfKey.map { $0 })
+        }
       }
     }()
 
@@ -332,19 +346,16 @@ final class KalynaAlgorithm {
     return createTable(from: row.shifted(by: (config.blockSize / 4 + 24) / 8))
   }
 
-  private func createIntermediateKey() -> [[UInt8]] {
-    let keyAlpha = Array(
-      [
-        Array(key[0..<(key.count / 2)]),
-        Array(key[(key.count / 2)..<key.count])
-      ]
-    )
-    let keyOmega = Array(
-      [
-        Array(key[0..<(key.count / 2)]),
-        Array(key[(key.count / 2)..<key.count])
-      ]
-    )
+  private func createIntermediateKey(key: [UInt8]) -> [[UInt8]] {
+    let keyAlpha: [[UInt8]]
+    let keyOmega: [[UInt8]]
+    if config.blockSize == config.keyLength {
+      keyAlpha = createTable(from: key)
+      keyOmega = createTable(from: key)
+    } else {
+      keyAlpha = createTable(from: Array(key[0..<(key.count / 2)]))
+      keyOmega = createTable(from: Array(key[(key.count / 2)..<key.count]))
+    }
 
     var interKey = createInititalIntermediateKey()
     addModulo2in64(state: &interKey, key: keyAlpha)
@@ -377,7 +388,7 @@ final class KalynaAlgorithm {
     let text = table.map { row -> String in
       return row.map { String(format: "%02x", $0) }.joined()
     }.joined()
-    print("Table: \(text)")
+    print(text)
   }
 
   private func createTable(from key: [UInt8]) -> [[UInt8]] {
@@ -390,7 +401,18 @@ final class KalynaAlgorithm {
   }
 
   private func phiFunction(key: [[UInt8]], index: Int) -> [[UInt8]] {
-    let shiftedConstant = vConstant.map { $0 << (index / 2) }
+    let shiftedConstant: [UInt8]
+    if index == 16 {
+      shiftedConstant = Array(0..<config.rows).flatMap { _ -> [UInt8] in
+        return [0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01]
+      }
+    } else if index == 18 {
+      shiftedConstant = Array(0..<config.rows).flatMap { _ -> [UInt8] in
+        return [0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02]
+      }
+    } else {
+      shiftedConstant = vConstant.map { $0 << (index / 2) }
+    }
     var table = createTable(from: shiftedConstant)
     addModulo2in64(state: &table, key: key)
     return table

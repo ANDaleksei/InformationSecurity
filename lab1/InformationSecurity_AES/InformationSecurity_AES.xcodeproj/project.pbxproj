@@ -13,6 +13,7 @@
 		02B376DC252663ED0035BEA4 /* AESError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B376DB252663ED0035BEA4 /* AESError.swift */; };
 		02E5894B252B09C7006255E3 /* Kalyna.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E5894A252B09C7006255E3 /* Kalyna.swift */; };
 		02E5894E252B1050006255E3 /* KalynaUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E5894D252B1050006255E3 /* KalynaUtilities.swift */; };
+		02E58951252B8831006255E3 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E58950252B8831006255E3 /* Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,7 @@
 		02B376DB252663ED0035BEA4 /* AESError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AESError.swift; sourceTree = "<group>"; };
 		02E5894A252B09C7006255E3 /* Kalyna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kalyna.swift; sourceTree = "<group>"; };
 		02E5894D252B1050006255E3 /* KalynaUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KalynaUtilities.swift; sourceTree = "<group>"; };
+		02E58950252B8831006255E3 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				02E5894A252B09C7006255E3 /* Kalyna.swift */,
 				02E5894D252B1050006255E3 /* KalynaUtilities.swift */,
 				02B376DB252663ED0035BEA4 /* AESError.swift */,
+				02E58950252B8831006255E3 /* Tests.swift */,
 			);
 			path = InformationSecurity_AES;
 			sourceTree = "<group>";
@@ -134,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02E58951252B8831006255E3 /* Tests.swift in Sources */,
 				02E5894E252B1050006255E3 /* KalynaUtilities.swift in Sources */,
 				029B50D925227C4C00246FBF /* main.swift in Sources */,
 				02E5894B252B09C7006255E3 /* Kalyna.swift in Sources */,
