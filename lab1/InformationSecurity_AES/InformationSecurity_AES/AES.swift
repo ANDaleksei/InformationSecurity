@@ -10,20 +10,40 @@ import Foundation
 final class AesAlgorithm {
 
   struct Config {
-    let columns = 4
-    let rounds: Int
+    let keyLength: Int
     let words: Int
+    let rounds: Int
+
+    var columns: Int {
+      return keyLength / (8 * words)
+    }
+
+    var keyByteLength: Int {
+      return keyLength / 8
+    }
+
+    static var config128: Config {
+      return .init(keyLength: 128, words: 4, rounds: 10)
+    }
+
+    static var config192: Config {
+      return .init(keyLength: 192, words: 6, rounds: 12)
+    }
+
+    static var config256: Config {
+      return .init(keyLength: 256, words: 8, rounds: 14)
+    }
   }
 
   private let config: Config
   private var words: [[UInt8]] = []
 
-  init(key: String, config: Config = .init(rounds: 10, words: 4)) {
+  init(key: String, config: Config = .config128) {
     self.config = config
     self.words = keyExpansion(key: key.data(using: .utf8)!.map { $0 })
   }
 
-  init(key: Data, config: Config = .init(rounds: 10, words: 4)) {
+  init(key: Data, config: Config = .config128) {
     self.config = config
     self.words = keyExpansion(key: key.map { $0 })
   }
@@ -260,7 +280,7 @@ final class AesAlgorithm {
 
     iter = config.words
 
-    while iter < config.columns * (config.rounds + 1) {
+    while iter < (config.columns * (config.rounds + 1)) {
       var word = words[iter - 1]
       if iter % config.words == 0 {
         word = xor(lhs: SboxSubstitution(word: rotWord(word: word)), rhs: Rcon[iter / config.words])

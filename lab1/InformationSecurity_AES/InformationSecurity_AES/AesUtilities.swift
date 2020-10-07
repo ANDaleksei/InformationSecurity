@@ -51,10 +51,25 @@ func xor(lhs: [UInt8], rhs: [UInt8]) -> [UInt8] {
   return zip(lhs, rhs).map { $0 ^ $1 }
 }
 
-func debugPrint(state: [[UInt8]]) {
+var isDebug = false
+func debugPrint(description: String, state: [[UInt8]]) {
+  guard isDebug else {
+    return
+  }
+
+  print(description)
   for row in state {
     print(debug(data: row))
   }
+}
+
+func debugPrintText(description: String, data: [UInt8]) {
+  guard isDebug else {
+    return
+  }
+
+  print(description)
+  print(debug(data: data))
 }
 
 func debug(data: [UInt8]) -> String {

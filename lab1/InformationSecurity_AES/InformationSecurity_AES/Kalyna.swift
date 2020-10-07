@@ -96,9 +96,10 @@ final class KalynaAlgorithm {
   func decrypt(data: Data) -> Data {
     var iter = 0
     var result = Data()
-    while 16 * (iter + 1) <= data.count  {
+    let blockSizeInBytes = config.blockSize / 8
+    while blockSizeInBytes * (iter + 1) <= data.count  {
       do {
-        let output = try decryptBlock(input: Data(Array(data[(16 * iter)..<(16 * (iter + 1))])))
+        let output = try decryptBlock(input: Data(Array(data[(blockSizeInBytes * iter)..<(blockSizeInBytes * (iter + 1))])))
         result.append(output)
       } catch {
         fatalError(error.localizedDescription)
@@ -221,8 +222,8 @@ final class KalynaAlgorithm {
   // MARK: - Decrypt
 
   private func decryptBlock(input: Data) throws -> Data {
-    guard input.count == 16 else {
-      throw AESError.badInput("Input should be exactly 16 bytes")
+    guard input.count * 8 == config.blockSize else {
+      throw AESError.badInput("Input should be exactly \(config.blockSize) bits")
     }
 
     var state = createTable(from: input.map { $0 })
@@ -381,10 +382,15 @@ final class KalynaAlgorithm {
     return key
   }
 
-  private func printTable(table: [[UInt8]]) {
+  private func printTable(description: String, table: [[UInt8]]) {
+    guard isDebug else {
+      return
+    }
+    
     let text = table.map { row -> String in
       return row.map { String(format: "%02x", $0) }.joined()
     }.joined()
+    print(description)
     print(text)
   }
 
