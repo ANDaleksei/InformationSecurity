@@ -48,7 +48,13 @@ func multiplyBy14(byte: UInt8) -> UInt8 {
 }
 
 func xor(lhs: [UInt8], rhs: [UInt8]) -> [UInt8] {
-  return zip(lhs, rhs).map { $0 ^ $1 }
+  //return zip(lhs, rhs).map { $0 ^ $1 }
+  return [
+    lhs[0] ^ rhs[0],
+    lhs[1] ^ rhs[1],
+    lhs[2] ^ rhs[2],
+    lhs[3] ^ rhs[3]
+  ]
 }
 
 var isDebug = false

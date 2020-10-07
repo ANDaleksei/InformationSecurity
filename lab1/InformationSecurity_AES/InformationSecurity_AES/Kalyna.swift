@@ -7,6 +7,8 @@
 
 import Foundation
 
+// 1. Precalculate table
+// 2. precalculate vectors
 final class KalynaAlgorithm {
 
   struct Config {
@@ -50,6 +52,7 @@ final class KalynaAlgorithm {
     }
 
     self.config = config
+    setupMultiplyTable()
     self.keys = keyExpansion(key: keyData.map { $0 })
   }
 
@@ -59,6 +62,7 @@ final class KalynaAlgorithm {
     }
 
     self.config = config
+    setupMultiplyTable()
     self.keys = keyExpansion(key: key.map { $0 })
   }
 
@@ -164,28 +168,44 @@ final class KalynaAlgorithm {
   }
 
   private func shiftRows(state: inout [[UInt8]]) {
+    let copy = state
     for columnIndex in 0..<8 {
-      let shift = (columnIndex * config.blockSize) / 512
-      let column = state.map { $0[columnIndex] }.shifted(by: state.count - shift % state.count)
+      let shift = (columnIndex * config.blockSize) >> 9
       for row in 0..<state.count {
-        state[row][columnIndex] = column[row]
+        state[row][columnIndex] = copy[(state.count + row - shift) % state.count][columnIndex]
       }
     }
   }
 
+  private let vectors: [[UInt8]] = [
+    [1, 1, 5, 1, 8, 6, 7, 4],
+    [4, 1, 1, 5, 1, 8, 6, 7],
+    [7, 4, 1, 1, 5, 1, 8, 6],
+    [6, 7, 4, 1, 1, 5, 1, 8],
+    [8, 6, 7, 4, 1, 1, 5, 1],
+    [1, 8, 6, 7, 4, 1, 1, 5],
+    [5, 1, 8, 6, 7, 4, 1, 1],
+    [1, 5, 1, 8, 6, 7, 4, 1]
+  ]
+
   private func linearTransformation(state: inout [[UInt8]]) {
-    let vector: [UInt8] = [1, 1, 5, 1, 8, 6, 7, 4]
     let copy = state
     for column in 0..<8 {
-      let shiftedVector = vector.shifted(by: 8 - column)
-      for (rowIndex, row) in copy.enumerated() {
-        state[rowIndex][column] = scalarProdcut(lhs: shiftedVector, rhs: row)
+      for row in 0..<copy.count {
+        state[row][column] = scalarProdcut(lhs: vectors[column], rhs: copy[row])
       }
     }
   }
 
   private func scalarProdcut(lhs: [UInt8], rhs: [UInt8]) -> UInt8 {
-    return zip(lhs, rhs).reduce(0, { $0 ^ multiply(lhs: $1.0, rhs: $1.1) })
+    return multiplyTable[Int(lhs[0])][Int(rhs[0])]
+      ^ multiplyTable[Int(lhs[1])][Int(rhs[1])]
+      ^ multiplyTable[Int(lhs[2])][Int(rhs[2])]
+      ^ multiplyTable[Int(lhs[3])][Int(rhs[3])]
+      ^ multiplyTable[Int(lhs[4])][Int(rhs[4])]
+      ^ multiplyTable[Int(lhs[5])][Int(rhs[5])]
+      ^ multiplyTable[Int(lhs[6])][Int(rhs[6])]
+      ^ multiplyTable[Int(lhs[7])][Int(rhs[7])]
   }
 
   private func multiply(lhs: UInt8, rhs: UInt8) -> UInt8 {
@@ -272,22 +292,31 @@ final class KalynaAlgorithm {
   }
 
   private func invShiftRows(state: inout [[UInt8]]) {
+    let copy = state
     for columnIndex in 0..<8 {
-      let shift = (columnIndex * config.blockSize) / 512
-      let column = state.map { $0[columnIndex] }.shifted(by: shift)
+      let shift = (columnIndex * config.blockSize) >> 9
       for row in 0..<state.count {
-        state[row][columnIndex] = column[row]
+        state[row][columnIndex] = copy[(state.count + row - shift) % state.count][columnIndex]
       }
     }
   }
 
+  private let invVectors: [[UInt8]] = [
+    [0xad, 0x95, 0x76, 0xa8, 0x2f, 0x49, 0xd7, 0xca],
+    [0xca, 0xad, 0x95, 0x76, 0xa8, 0x2f, 0x49, 0xd7],
+    [0xd7, 0xca, 0xad, 0x95, 0x76, 0xa8, 0x2f, 0x49],
+    [0x49, 0xd7, 0xca, 0xad, 0x95, 0x76, 0xa8, 0x2f],
+    [0x2f, 0x49, 0xd7, 0xca, 0xad, 0x95, 0x76, 0xa8],
+    [0xa8, 0x2f, 0x49, 0xd7, 0xca, 0xad, 0x95, 0x76],
+    [0x76, 0xa8, 0x2f, 0x49, 0xd7, 0xca, 0xad, 0x95],
+    [0x95, 0x76, 0xa8, 0x2f, 0x49, 0xd7, 0xca, 0xad]
+  ]
+
   private func invLinearTransformation(state: inout [[UInt8]]) {
-    let vector: [UInt8] = [0xad, 0x95, 0x76, 0xa8, 0x2f, 0x49, 0xd7, 0xca]
     let copy = state
     for column in 0..<8 {
-      let shiftedVector = vector.shifted(by: 8 - column)
-      for (rowIndex, row) in copy.enumerated() {
-        state[rowIndex][column] = scalarProdcut(lhs: shiftedVector, rhs: row)
+      for row in 0..<copy.count {
+        state[row][column] = scalarProdcut(lhs: invVectors[column], rhs: copy[row])
       }
     }
   }
@@ -419,5 +448,16 @@ final class KalynaAlgorithm {
     var table = createTable(from: shiftedConstant)
     addModulo2in64(state: &table, key: key)
     return table
+  }
+
+  // Utilities
+
+  private var multiplyTable: [[UInt8]] = .init(repeatElement([UInt8](repeating: 0, count: 256), count: 256))
+  private func setupMultiplyTable() {
+    for row in 0..<256 {
+      for column in 0..<256 {
+        multiplyTable[row][column] = multiply(lhs: UInt8(row), rhs: UInt8(column))
+      }
+    }
   }
 }

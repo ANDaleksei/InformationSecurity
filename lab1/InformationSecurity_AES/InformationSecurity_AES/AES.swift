@@ -40,11 +40,13 @@ final class AesAlgorithm {
 
   init(key: String, config: Config = .config128) {
     self.config = config
+    setupMultiplyTable()
     self.words = keyExpansion(key: key.data(using: .utf8)!.map { $0 })
   }
 
   init(key: Data, config: Config = .config128) {
     self.config = config
+    setupMultiplyTable()
     self.words = keyExpansion(key: key.map { $0 })
   }
 
@@ -135,11 +137,10 @@ final class AesAlgorithm {
   }
 
   private func addRoundKey(state: inout [[UInt8]], words: [[UInt8]]) {
-    let transposeWords = words.indices.map { index in words.map { $0[index] } }
-    state[0] = xor(lhs: state[0], rhs: transposeWords[0])
-    state[1] = xor(lhs: state[1], rhs: transposeWords[1])
-    state[2] = xor(lhs: state[2], rhs: transposeWords[2])
-    state[3] = xor(lhs: state[3], rhs: transposeWords[3])
+    state[0] = xor(lhs: state[0], rhs: [words[0][0], words[1][0], words[2][0], words[3][0]])
+    state[1] = xor(lhs: state[1], rhs: [words[0][1], words[1][1], words[2][1], words[3][1]])
+    state[2] = xor(lhs: state[2], rhs: [words[0][2], words[1][2], words[2][2], words[3][2]])
+    state[3] = xor(lhs: state[3], rhs: [words[0][3], words[1][3], words[2][3], words[3][3]])
   }
 
   private func subBytes(state: inout [[UInt8]]) {
@@ -157,24 +158,24 @@ final class AesAlgorithm {
   }
 
   private func mixColumns(state: inout [[UInt8]]) {
+    let copy = state
     for columnIndex in 0..<state[0].count {
-      let column = state.map { $0[columnIndex] }
-      state[0][columnIndex] = multiplyBy2(byte: column[0])
-        ^ multiplyBy3(byte: column[1])
-        ^ column[2]
-        ^ column[3]
-      state[1][columnIndex] = column[0]
-        ^ multiplyBy2(byte: column[1])
-        ^ multiplyBy3(byte: column[2])
-        ^ column[3]
-      state[2][columnIndex] = column[0]
-        ^ column[1]
-        ^ multiplyBy2(byte: column[2])
-        ^ multiplyBy3(byte: column[3])
-      state[3][columnIndex] = multiplyBy3(byte: column[0])
-        ^ column[1]
-        ^ column[2]
-        ^ multiplyBy2(byte: column[3])
+      state[0][columnIndex] = multiply2Table[Int(copy[0][columnIndex])]
+        ^ multiply3Table[Int(copy[1][columnIndex])]
+        ^ copy[2][columnIndex]
+        ^ copy[3][columnIndex]
+      state[1][columnIndex] = copy[0][columnIndex]
+        ^ multiply2Table[Int(copy[1][columnIndex])]
+        ^ multiply3Table[Int(copy[2][columnIndex])]
+        ^ copy[3][columnIndex]
+      state[2][columnIndex] = copy[0][columnIndex]
+        ^ copy[1][columnIndex]
+        ^ multiply2Table[Int(copy[2][columnIndex])]
+        ^ multiply3Table[Int(copy[3][columnIndex])]
+      state[3][columnIndex] = multiply3Table[Int(copy[0][columnIndex])]
+        ^ copy[1][columnIndex]
+        ^ copy[2][columnIndex]
+        ^ multiply2Table[Int(copy[3][columnIndex])]
     }
   }
 
@@ -243,22 +244,22 @@ final class AesAlgorithm {
   private func invMixColumns(state: inout [[UInt8]]) {
     for columnIndex in 0..<state[0].count {
       let column = state.map { $0[columnIndex] }
-      state[0][columnIndex] = multiplyBy14(byte: column[0])
-        ^ multiplyBy11(byte: column[1])
-        ^ multiplyBy13(byte: column[2])
-        ^ multiplyBy9(byte: column[3])
-      state[1][columnIndex] = multiplyBy9(byte: column[0])
-        ^ multiplyBy14(byte: column[1])
-        ^ multiplyBy11(byte: column[2])
-        ^ multiplyBy13(byte: column[3])
-      state[2][columnIndex] = multiplyBy13(byte: column[0])
-        ^ multiplyBy9(byte: column[1])
-        ^ multiplyBy14(byte: column[2])
-        ^ multiplyBy11(byte: column[3])
-      state[3][columnIndex] = multiplyBy11(byte: column[0])
-        ^ multiplyBy13(byte: column[1])
-        ^ multiplyBy9(byte: column[2])
-        ^ multiplyBy14(byte: column[3])
+      state[0][columnIndex] = multiply14Table[Int(column[0])]
+        ^ multiply11Table[Int(column[1])]
+        ^ multiply13Table[Int(column[2])]
+        ^ multiply9Table[Int(column[3])]
+      state[1][columnIndex] = multiply9Table[Int(column[0])]
+        ^ multiply14Table[Int(column[1])]
+        ^ multiply11Table[Int(column[2])]
+        ^ multiply13Table[Int(column[3])]
+      state[2][columnIndex] = multiply13Table[Int(column[0])]
+        ^ multiply9Table[Int(column[1])]
+        ^ multiply14Table[Int(column[2])]
+        ^ multiply11Table[Int(column[3])]
+      state[3][columnIndex] = multiply11Table[Int(column[0])]
+        ^ multiply13Table[Int(column[1])]
+        ^ multiply9Table[Int(column[2])]
+        ^ multiply14Table[Int(column[3])]
     }
   }
 
@@ -296,6 +297,25 @@ final class AesAlgorithm {
 
   private func SboxSubstitution(word: [UInt8]) -> [UInt8] {
     return word.map(SboxSubstitution(byte:))
+  }
+
+  // Utilities
+
+  private var multiply2Table: [UInt8] = .init(repeating: 0, count: 256)
+  private var multiply3Table: [UInt8] = .init(repeating: 0, count: 256)
+  private var multiply9Table: [UInt8] = .init(repeating: 0, count: 256)
+  private var multiply11Table: [UInt8] = .init(repeating: 0, count: 256)
+  private var multiply13Table: [UInt8] = .init(repeating: 0, count: 256)
+  private var multiply14Table: [UInt8] = .init(repeating: 0, count: 256)
+  private func setupMultiplyTable() {
+    for num in 0..<256 {
+      multiply2Table[num] = multiplyBy2(byte: UInt8(num))
+      multiply3Table[num] = multiplyBy3(byte: UInt8(num))
+      multiply9Table[num] = multiplyBy9(byte: UInt8(num))
+      multiply11Table[num] = multiplyBy11(byte: UInt8(num))
+      multiply13Table[num] = multiplyBy13(byte: UInt8(num))
+      multiply14Table[num] = multiplyBy14(byte: UInt8(num))
+    }
   }
 }
 
