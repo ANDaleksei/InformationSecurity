@@ -1,8 +1,8 @@
 //
 //  AES.swift
-//  InformationSecurity_AES
+//  StreamingCiphers
 //
-//  Created by Oleksii Andriushchenko on 01.10.2020.
+//  Created by Oleksii Andriushchenko on 18.10.2020.
 //
 
 import Foundation
@@ -38,72 +38,20 @@ final class AesAlgorithm {
   private let config: Config
   private var words: [[UInt8]] = []
 
-  init(key: String, config: Config = .config128) {
-    self.config = config
-    setupMultiplyTable()
-    self.words = keyExpansion(key: key.data(using: .utf8)!.map { $0 })
-  }
-
   init(key: Data, config: Config = .config128) {
     self.config = config
     setupMultiplyTable()
     self.words = keyExpansion(key: key.map { $0 })
   }
 
-  func encrypt(text: String) -> Data {
-    guard let data = text.data(using: .utf8) else {
-      fatalError("Can't get data from input text")
-    }
-
-    return encrypt(data: data)
-  }
-
-  func encrypt(data: Data) -> Data {
-    var iter = 0
-    var result = Data()
-    while 16 * (iter + 1) <= data.count  {
-      do {
-        let output = try encryptBlock(input: Data(data[(16 * iter)..<(16 * (iter + 1))]))
-        result.append(output)
-      } catch {
-        fatalError(error.localizedDescription)
-      }
-
-      iter += 1
-    }
-
-    return result
-  }
-
-  func decrypt(data: Data) -> String {
-    return String(data: decrypt(data: data), encoding: .utf8)!
-  }
-
-  func decrypt(data: Data) -> Data {
-    var iter = 0
-    var result = Data()
-    while 16 * (iter + 1) <= data.count  {
-      do {
-        let output = try decryptBlock(input: Data(Array(data[(16 * iter)..<(16 * (iter + 1))])))
-        result.append(output)
-      } catch {
-        fatalError(error.localizedDescription)
-      }
-
-      iter += 1
-    }
-
-    return result
-  }
-
   // MARK: Encrypt
 
-  private func encryptBlock(input: Data) throws -> Data {
-    guard input.count == 16 else {
-      throw AESError.badInput("Input should be exactly 16 bytes")
+  func encodeBlock(data: Data) -> Data {
+    guard data.count == 16 else {
+      fatalError("Input should be exactly 16 bytes")
     }
 
-    var state = createState(from: input)
+    var state = createState(from: data)
     addRoundKey(state: &state, words: Array(words[0..<config.columns]))
 
     for round in 1..<(config.rounds) {
@@ -120,8 +68,7 @@ final class AesAlgorithm {
       words: Array(words[(config.rounds * config.columns)..<((config.rounds + 1) * config.columns)])
     )
 
-    let output = createOutput(from: state)
-    return output
+    return createOutput(from: state)
   }
 
   private func createState(from input: Data) -> [[UInt8]] {
@@ -200,12 +147,12 @@ final class AesAlgorithm {
 
   // MARK: - Decrypt
 
-  private func decryptBlock(input: Data) throws -> Data {
-    guard input.count == 16 else {
-      throw AESError.badInput("Input should be exactly 16 bytes")
+  func decodeBlock(data: Data) -> Data {
+    guard data.count == 16 else {
+      fatalError("Input should be exactly 16 bytes")
     }
 
-    var state = createState(from: input)
+    var state = createState(from: data)
     addRoundKey(
       state: &state,
       words: Array(words[(config.rounds * config.columns)..<((config.rounds + 1) * config.columns)])
@@ -223,8 +170,7 @@ final class AesAlgorithm {
     invSubBytes(state: &state)
     addRoundKey(state: &state, words: Array(words[0..<config.columns]))
 
-    let output = createOutput(from: state)
-    return output
+    return createOutput(from: state)
   }
 
   private func invSubBytes(state: inout [[UInt8]]) {

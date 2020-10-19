@@ -1,0 +1,318 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		024C85FB2539FB9900A0514D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C85FA2539FB9900A0514D /* main.swift */; };
+		024C8603253C633700A0514D /* RC4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C8602253C633700A0514D /* RC4.swift */; };
+		024C8606253C68E200A0514D /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C8605253C68E200A0514D /* Tests.swift */; };
+		024C8609253C6C0600A0514D /* Salsa20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C8608253C6C0600A0514D /* Salsa20.swift */; };
+		024C860C253CB39200A0514D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C860B253CB39200A0514D /* Utilities.swift */; };
+		024C860F253CC41400A0514D /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C860E253CC41400A0514D /* AES.swift */; };
+		024C8612253CC4CF00A0514D /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024C8611253CC4CF00A0514D /* BlockCipher.swift */; };
+		02DDE139253DF06300710BFD /* Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DDE138253DF06300710BFD /* Performance.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		024C85F52539FB9900A0514D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		024C85F72539FB9900A0514D /* StreamingCiphers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = StreamingCiphers; sourceTree = BUILT_PRODUCTS_DIR; };
+		024C85FA2539FB9900A0514D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		024C8602253C633700A0514D /* RC4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RC4.swift; sourceTree = "<group>"; };
+		024C8605253C68E200A0514D /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		024C8608253C6C0600A0514D /* Salsa20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Salsa20.swift; sourceTree = "<group>"; };
+		024C860B253CB39200A0514D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		024C860E253CC41400A0514D /* AES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
+		024C8611253CC4CF00A0514D /* BlockCipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCipher.swift; sourceTree = "<group>"; };
+		02DDE138253DF06300710BFD /* Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Performance.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		024C85F42539FB9900A0514D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		024C85EE2539FB9900A0514D = {
+			isa = PBXGroup;
+			children = (
+				024C85F92539FB9900A0514D /* StreamingCiphers */,
+				024C85F82539FB9900A0514D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		024C85F82539FB9900A0514D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				024C85F72539FB9900A0514D /* StreamingCiphers */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		024C85F92539FB9900A0514D /* StreamingCiphers */ = {
+			isa = PBXGroup;
+			children = (
+				024C85FA2539FB9900A0514D /* main.swift */,
+				024C8602253C633700A0514D /* RC4.swift */,
+				024C8608253C6C0600A0514D /* Salsa20.swift */,
+				024C860E253CC41400A0514D /* AES.swift */,
+				024C8611253CC4CF00A0514D /* BlockCipher.swift */,
+				02DDE138253DF06300710BFD /* Performance.swift */,
+				024C860B253CB39200A0514D /* Utilities.swift */,
+				024C8605253C68E200A0514D /* Tests.swift */,
+			);
+			path = StreamingCiphers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		024C85F62539FB9900A0514D /* StreamingCiphers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 024C85FE2539FB9900A0514D /* Build configuration list for PBXNativeTarget "StreamingCiphers" */;
+			buildPhases = (
+				024C85F32539FB9900A0514D /* Sources */,
+				024C85F42539FB9900A0514D /* Frameworks */,
+				024C85F52539FB9900A0514D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StreamingCiphers;
+			productName = StreamingCiphers;
+			productReference = 024C85F72539FB9900A0514D /* StreamingCiphers */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		024C85EF2539FB9900A0514D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					024C85F62539FB9900A0514D = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 024C85F22539FB9900A0514D /* Build configuration list for PBXProject "StreamingCiphers" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 024C85EE2539FB9900A0514D;
+			productRefGroup = 024C85F82539FB9900A0514D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				024C85F62539FB9900A0514D /* StreamingCiphers */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		024C85F32539FB9900A0514D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				024C8612253CC4CF00A0514D /* BlockCipher.swift in Sources */,
+				024C85FB2539FB9900A0514D /* main.swift in Sources */,
+				024C860F253CC41400A0514D /* AES.swift in Sources */,
+				024C8606253C68E200A0514D /* Tests.swift in Sources */,
+				024C8609253C6C0600A0514D /* Salsa20.swift in Sources */,
+				024C860C253CB39200A0514D /* Utilities.swift in Sources */,
+				02DDE139253DF06300710BFD /* Performance.swift in Sources */,
+				024C8603253C633700A0514D /* RC4.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		024C85FC2539FB9900A0514D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		024C85FD2539FB9900A0514D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		024C85FF2539FB9900A0514D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR9798TT9L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		024C86002539FB9900A0514D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR9798TT9L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		024C85F22539FB9900A0514D /* Build configuration list for PBXProject "StreamingCiphers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				024C85FC2539FB9900A0514D /* Debug */,
+				024C85FD2539FB9900A0514D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		024C85FE2539FB9900A0514D /* Build configuration list for PBXNativeTarget "StreamingCiphers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				024C85FF2539FB9900A0514D /* Debug */,
+				024C86002539FB9900A0514D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 024C85EF2539FB9900A0514D /* Project object */;
+}
