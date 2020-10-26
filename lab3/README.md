@@ -1,4 +1,4 @@
-# laboratory work №2
+# laboratory work №3
 
 В даній лабораторній були реалізовані криптографічні хеш-функції SHA-256 та Kupyna. Ці алгоритми були реалізовані на мові програмування Swift. Для реалізації алгоритмів [SHA-256](CryptographicHashFunctions/CryptographicHashFunctions/SHA-256.swift) та [Kupyna](CryptographicHashFunctions/CryptographicHashFunctions/Kupyna.swift) були створені окремі класи з такими ж назвами. Ці класи мають лише один публічний метод:
 ```swift
