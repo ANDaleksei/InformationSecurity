@@ -10,6 +10,9 @@
 		0252D994254348D200204BF3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252D993254348D200204BF3 /* main.swift */; };
 		0252D99C2543506E00204BF3 /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252D99B2543506E00204BF3 /* SHA256.swift */; };
 		0252D99F2543701D00204BF3 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252D99E2543701D00204BF3 /* Tests.swift */; };
+		0252D9A225437CFF00204BF3 /* Kupyna.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252D9A125437CFF00204BF3 /* Kupyna.swift */; };
+		0252D9A52545FA4400204BF3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0252D9A42545FA4400204BF3 /* Utilities.swift */; };
+		0291A1ED25474D5500422466 /* ProofOfWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0291A1EC25474D5500422466 /* ProofOfWork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +32,9 @@
 		0252D993254348D200204BF3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		0252D99B2543506E00204BF3 /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
 		0252D99E2543701D00204BF3 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		0252D9A125437CFF00204BF3 /* Kupyna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kupyna.swift; sourceTree = "<group>"; };
+		0252D9A42545FA4400204BF3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		0291A1EC25474D5500422466 /* ProofOfWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofOfWork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +69,10 @@
 			children = (
 				0252D993254348D200204BF3 /* main.swift */,
 				0252D99B2543506E00204BF3 /* SHA256.swift */,
+				0252D9A125437CFF00204BF3 /* Kupyna.swift */,
+				0252D9A42545FA4400204BF3 /* Utilities.swift */,
 				0252D99E2543701D00204BF3 /* Tests.swift */,
+				0291A1EC25474D5500422466 /* ProofOfWork.swift */,
 			);
 			path = CryptographicHashFunctions;
 			sourceTree = "<group>";
@@ -125,9 +134,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0291A1ED25474D5500422466 /* ProofOfWork.swift in Sources */,
 				0252D99C2543506E00204BF3 /* SHA256.swift in Sources */,
 				0252D99F2543701D00204BF3 /* Tests.swift in Sources */,
 				0252D994254348D200204BF3 /* main.swift in Sources */,
+				0252D9A52545FA4400204BF3 /* Utilities.swift in Sources */,
+				0252D9A225437CFF00204BF3 /* Kupyna.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
