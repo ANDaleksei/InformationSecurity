@@ -70,7 +70,7 @@ final class Kupyna {
     }
   }
 
-  func mappingTXor(bytes: [UInt8]) -> [UInt8] {
+  private func mappingTXor(bytes: [UInt8]) -> [UInt8] {
     var state = makeState(bytes: bytes)
     for round in 0..<k {
       addModulo2(state: &state, round: round)
@@ -81,7 +81,7 @@ final class Kupyna {
     return state.flatMap { $0 }
   }
 
-  func mappingTPlus(bytes: [UInt8]) -> [UInt8] {
+  private func mappingTPlus(bytes: [UInt8]) -> [UInt8] {
     var state = makeState(bytes: bytes)
     for round in 0..<k {
       addModulo2in64(state: &state, round: round)

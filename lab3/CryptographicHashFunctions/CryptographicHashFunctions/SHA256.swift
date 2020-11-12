@@ -14,7 +14,6 @@ final class SHA256 {
   /// 64 bytes = 512 bits
   private let blockSize = 64
   private let wordSize = 4
-  private let digestSize = 32
 
   func hash(data: Data) -> Data {
     let paddedData = addPadding(to: data)
