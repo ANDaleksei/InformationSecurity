@@ -3,11 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		022D435A255DA5E300C4B4D7 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D4359255DA5E300C4B4D7 /* main.swift */; };
+		022D4362255DA99100C4B4D7 /* MillerRabinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D4361255DA99100C4B4D7 /* MillerRabinTest.swift */; };
+		022D4366255DABF000C4B4D7 /* BigNumber in Frameworks */ = {isa = PBXBuildFile; productRef = 022D4365255DABF000C4B4D7 /* BigNumber */; };
+		022D4369255DBA8000C4B4D7 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D4368255DBA8000C4B4D7 /* Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,8 @@
 /* Begin PBXFileReference section */
 		022D4356255DA5E300C4B4D7 /* Cryptosystems */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Cryptosystems; sourceTree = BUILT_PRODUCTS_DIR; };
 		022D4359255DA5E300C4B4D7 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		022D4361255DA99100C4B4D7 /* MillerRabinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MillerRabinTest.swift; sourceTree = "<group>"; };
+		022D4368255DBA8000C4B4D7 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				022D4366255DABF000C4B4D7 /* BigNumber in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				022D4359255DA5E300C4B4D7 /* main.swift */,
+				022D4361255DA99100C4B4D7 /* MillerRabinTest.swift */,
+				022D4368255DBA8000C4B4D7 /* Tests.swift */,
 			);
 			path = Cryptosystems;
 			sourceTree = "<group>";
@@ -78,6 +86,9 @@
 			dependencies = (
 			);
 			name = Cryptosystems;
+			packageProductDependencies = (
+				022D4365255DABF000C4B4D7 /* BigNumber */,
+			);
 			productName = Cryptosystems;
 			productReference = 022D4356255DA5E300C4B4D7 /* Cryptosystems */;
 			productType = "com.apple.product-type.tool";
@@ -105,6 +116,9 @@
 				Base,
 			);
 			mainGroup = 022D434D255DA5E300C4B4D7;
+			packageReferences = (
+				022D4364255DABF000C4B4D7 /* XCRemoteSwiftPackageReference "Swift-BigInt" */,
+			);
 			productRefGroup = 022D4357255DA5E300C4B4D7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -120,6 +134,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				022D435A255DA5E300C4B4D7 /* main.swift in Sources */,
+				022D4369255DBA8000C4B4D7 /* Tests.swift in Sources */,
+				022D4362255DA99100C4B4D7 /* MillerRabinTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +301,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		022D4364255DABF000C4B4D7 /* XCRemoteSwiftPackageReference "Swift-BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mkrd/Swift-BigInt";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		022D4365255DABF000C4B4D7 /* BigNumber */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 022D4364255DABF000C4B4D7 /* XCRemoteSwiftPackageReference "Swift-BigInt" */;
+			productName = BigNumber;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 022D434E255DA5E300C4B4D7 /* Project object */;
 }
