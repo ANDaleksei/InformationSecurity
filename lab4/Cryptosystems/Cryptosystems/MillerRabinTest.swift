@@ -56,7 +56,7 @@ private func log2(number: BInt) -> BInt {
   return power
 }
 
-private func power(base: BInt, pow: BInt, modul: BInt) -> BInt {
+func power(base: BInt, pow: BInt, modul: BInt) -> BInt {
   var res = BInt(1)
   var exp = pow
   var base = base

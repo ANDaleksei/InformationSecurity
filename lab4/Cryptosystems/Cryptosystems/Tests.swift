@@ -22,3 +22,19 @@ func testMillerRabinTest() {
   assert(!checkIsPrime(number: BInt("409399877584938292018302046273")!))
   assert(!checkIsPrime(number: BInt("48573949372648576960584725341828997")!))
 }
+
+func testRSA() {
+  let text = "Hello"
+  let rsa = RSA(bitCount: 20)
+  let encryptedData = rsa.encrypt(data: text.data(using: .utf8)!)
+  let decryptedData = rsa.decrypt(data: encryptedData)
+  assert(text == String(data: decryptedData, encoding: .utf8)!)
+}
+
+func testRSA1() {
+  let text = "Some text to encrypt"
+  let rsa = RSA(bitCount: 128)
+  let encryptedData = rsa.encrypt(data: text.data(using: .utf8)!)
+  let decryptedData = rsa.decrypt(data: encryptedData)
+  assert(text == String(data: decryptedData, encoding: .utf8)!)
+}
