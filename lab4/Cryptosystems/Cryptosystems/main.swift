@@ -8,6 +8,8 @@
 import BigNumber
 import Foundation
 
-//testMillerRabinTest()
+testMillerRabinTest()
 testRSA()
+testRSA1()
+testRSAOAEP()
 print("Tests passed")

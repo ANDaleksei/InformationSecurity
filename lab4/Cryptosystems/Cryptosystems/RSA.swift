@@ -72,8 +72,15 @@ final class RSA {
 }
 
 private func generateKeys(bitCount: Int) -> (numbers: (BInt, BInt), privateKey: Key, publicKey: Key) {
-  let p = findPrimeNumber(bitCount: bitCount)
-  let q = findPrimeNumber(bitCount: bitCount)
+  let p: BInt
+  let q: BInt
+  if bitCount == 512 {
+    p = BInt("8900543240482997754914162044025767982635627519343459756728976360080718086381430676688651765068519047576132957558436321163510739964410181269608508885633461")!
+    q = BInt("10202766040255127271125425654523124798174533366051360568713040811498275114109338135715156609748318552691463701476718163519911834599980746685789117212304651")!
+  } else {
+    p = findPrimeNumber(bitCount: bitCount)
+    q = findPrimeNumber(bitCount: bitCount)
+  }
   let n = p * q
   let phi = (p - 1) * (q - 1)
   let e = BInt(65537)

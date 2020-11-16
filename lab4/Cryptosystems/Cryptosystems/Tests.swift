@@ -38,3 +38,11 @@ func testRSA1() {
   let decryptedData = rsa.decrypt(data: encryptedData)
   assert(text == String(data: decryptedData, encoding: .utf8)!)
 }
+
+func testRSAOAEP() {
+  let text = "Some text to encrypt"
+  let rsa = RSAOAEP(bitCount: 512)
+  let encryptedData = rsa.encrypt(data: text.data(using: .utf8)!)
+  let decryptedData = rsa.decrypt(data: encryptedData)
+  assert(text == String(data: decryptedData, encoding: .utf8)!)
+}

@@ -12,6 +12,8 @@
 		022D4366255DABF000C4B4D7 /* BigNumber in Frameworks */ = {isa = PBXBuildFile; productRef = 022D4365255DABF000C4B4D7 /* BigNumber */; };
 		022D4369255DBA8000C4B4D7 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D4368255DBA8000C4B4D7 /* Tests.swift */; };
 		022D436C255DBDE500C4B4D7 /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D436B255DBDE500C4B4D7 /* RSA.swift */; };
+		02F31A6B2562E85300CDF4F7 /* RSAOAEP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F31A6A2562E85300CDF4F7 /* RSAOAEP.swift */; };
+		02F31A6F2562E8E600CDF4F7 /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F31A6E2562E8E600CDF4F7 /* SHA256.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +34,8 @@
 		022D4361255DA99100C4B4D7 /* MillerRabinTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MillerRabinTest.swift; sourceTree = "<group>"; };
 		022D4368255DBA8000C4B4D7 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		022D436B255DBDE500C4B4D7 /* RSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
+		02F31A6A2562E85300CDF4F7 /* RSAOAEP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSAOAEP.swift; sourceTree = "<group>"; };
+		02F31A6E2562E8E600CDF4F7 /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 				022D4359255DA5E300C4B4D7 /* main.swift */,
 				022D4361255DA99100C4B4D7 /* MillerRabinTest.swift */,
 				022D436B255DBDE500C4B4D7 /* RSA.swift */,
+				02F31A6A2562E85300CDF4F7 /* RSAOAEP.swift */,
+				02F31A6E2562E8E600CDF4F7 /* SHA256.swift */,
 				022D4368255DBA8000C4B4D7 /* Tests.swift */,
 			);
 			path = Cryptosystems;
@@ -138,7 +144,9 @@
 			files = (
 				022D435A255DA5E300C4B4D7 /* main.swift in Sources */,
 				022D4369255DBA8000C4B4D7 /* Tests.swift in Sources */,
+				02F31A6F2562E8E600CDF4F7 /* SHA256.swift in Sources */,
 				022D436C255DBDE500C4B4D7 /* RSA.swift in Sources */,
+				02F31A6B2562E85300CDF4F7 /* RSAOAEP.swift in Sources */,
 				022D4362255DA99100C4B4D7 /* MillerRabinTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
