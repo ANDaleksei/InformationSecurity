@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BigNumber
 
 func checkPerformance() {
   let bits = [256, 384, 512, 640, 768, 896, 1024]
@@ -39,4 +40,31 @@ func checkPerformance() {
     timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
     print("RSA OAEP, End decrypting, time taken in seconds: \(timeElapsed)")
   }
+}
+
+func checkMilerRabinPerformance() {
+  var startTime = CFAbsoluteTimeGetCurrent()
+  _ = checkIsPrime(number: BInt("9223372036854775643")!)
+  var timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+  print("Time taken in seconds: \(timeElapsed)")
+
+  startTime = CFAbsoluteTimeGetCurrent()
+  _ = checkIsPrime(number: BInt("9223372036854775783")!)
+  timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+  print("Time taken in seconds: \(timeElapsed)")
+
+  startTime = CFAbsoluteTimeGetCurrent()
+  _ = checkIsPrime(number: BInt("10888869450418352160768000001")!)
+  timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+  print("Time taken in seconds: \(timeElapsed)")
+
+  startTime = CFAbsoluteTimeGetCurrent()
+  _ = checkIsPrime(number: BInt("263130836933693530167218012159999999")!)
+  timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+  print("Time taken in seconds: \(timeElapsed)")
+
+  startTime = CFAbsoluteTimeGetCurrent()
+  _ = checkIsPrime(number: BInt("8683317618811886495518194401279999999")!)
+  timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+  print("Time taken in seconds: \(timeElapsed)")
 }

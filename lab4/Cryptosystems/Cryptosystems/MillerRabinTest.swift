@@ -10,10 +10,7 @@ import Foundation
 
 func checkIsPrime(number: BInt) -> Bool {
   let (s, t) = getTwoNumbers(from: number - 1)
-  //print("\(number - 1) = 2^(\(s)) * \(t)")
   let k = log2(number: number)
-  //print("Number of rounds: \(k)")
-  //print("Random numbers: ", terminator: "")
   for _ in 0..<k {
     // get random number from 0 to 2^64 because BInt doesn't have this functionality
     let a = BInt(Int.random(in: 1...(number < Int.max ? Int(number) : Int.max)))
