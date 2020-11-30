@@ -3,11 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0211E9E02573A1D4003617AC /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0211E9DF2573A1D4003617AC /* main.swift */; };
+		0211E9E82573C166003617AC /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0211E9E72573C166003617AC /* Element.swift */; };
+		0211E9EB2573C191003617AC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0211E9EA2573C191003617AC /* Utilities.swift */; };
+		0211E9EE2573C93D003617AC /* Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0211E9ED2573C93D003617AC /* Methods.swift */; };
+		029F6B97257557F700D22A11 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 029F6B96257557F700D22A11 /* BigInt */; };
+		029F6B9A25755B9500D22A11 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F6B9925755B9500D22A11 /* Point.swift */; };
+		029F6B9D25756B0500D22A11 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F6B9C25756B0500D22A11 /* Signature.swift */; };
+		029F6BA025756C0C00D22A11 /* Kupyna.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F6B9F25756C0C00D22A11 /* Kupyna.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +32,12 @@
 /* Begin PBXFileReference section */
 		0211E9DC2573A1D4003617AC /* EllipticCurve */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EllipticCurve; sourceTree = BUILT_PRODUCTS_DIR; };
 		0211E9DF2573A1D4003617AC /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		0211E9E72573C166003617AC /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
+		0211E9EA2573C191003617AC /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		0211E9ED2573C93D003617AC /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Methods.swift; sourceTree = "<group>"; };
+		029F6B9925755B9500D22A11 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		029F6B9C25756B0500D22A11 /* Signature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
+		029F6B9F25756C0C00D22A11 /* Kupyna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kupyna.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				029F6B97257557F700D22A11 /* BigInt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +72,12 @@
 			isa = PBXGroup;
 			children = (
 				0211E9DF2573A1D4003617AC /* main.swift */,
+				029F6B9C25756B0500D22A11 /* Signature.swift */,
+				029F6B9F25756C0C00D22A11 /* Kupyna.swift */,
+				0211E9E72573C166003617AC /* Element.swift */,
+				0211E9ED2573C93D003617AC /* Methods.swift */,
+				029F6B9925755B9500D22A11 /* Point.swift */,
+				0211E9EA2573C191003617AC /* Utilities.swift */,
 			);
 			path = EllipticCurve;
 			sourceTree = "<group>";
@@ -78,6 +98,9 @@
 			dependencies = (
 			);
 			name = EllipticCurve;
+			packageProductDependencies = (
+				029F6B96257557F700D22A11 /* BigInt */,
+			);
 			productName = EllipticCurve;
 			productReference = 0211E9DC2573A1D4003617AC /* EllipticCurve */;
 			productType = "com.apple.product-type.tool";
@@ -105,6 +128,9 @@
 				Base,
 			);
 			mainGroup = 0211E9D32573A1D4003617AC;
+			packageReferences = (
+				029F6B95257557F700D22A11 /* XCRemoteSwiftPackageReference "BigInt" */,
+			);
 			productRefGroup = 0211E9DD2573A1D4003617AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -119,6 +145,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				029F6B9D25756B0500D22A11 /* Signature.swift in Sources */,
+				029F6BA025756C0C00D22A11 /* Kupyna.swift in Sources */,
+				0211E9EE2573C93D003617AC /* Methods.swift in Sources */,
+				029F6B9A25755B9500D22A11 /* Point.swift in Sources */,
+				0211E9EB2573C191003617AC /* Utilities.swift in Sources */,
+				0211E9E82573C166003617AC /* Element.swift in Sources */,
 				0211E9E02573A1D4003617AC /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +317,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		029F6B95257557F700D22A11 /* XCRemoteSwiftPackageReference "BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/attaswift/BigInt.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		029F6B96257557F700D22A11 /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 029F6B95257557F700D22A11 /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0211E9D42573A1D4003617AC /* Project object */;
 }
