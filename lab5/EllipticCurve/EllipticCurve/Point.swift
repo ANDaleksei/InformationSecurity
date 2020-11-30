@@ -37,8 +37,8 @@ struct Point: Equatable {
         x: x,
         y: y
       )
-    } else if lhs.x == rhs.x && lhs.y == rhs.y {
-      let m = lhs.x ^ lhs.y / rhs.x
+    } else if lhs.x == rhs.x {
+      let m = lhs.x ^ (lhs.y / rhs.x)
       let x = pow(m, power: 2) ^ m ^ A
       return .init(
         x: x,

@@ -23,7 +23,7 @@ final class Signature {
 
   init() {
     d = BigInt("183F60FDF7951FF47D67193F8D073790C1C9B5A3E", radix: 16)!
-    q = mult(point, coef: d)
+    q = mult(.init(x: point.x, y: point.x + point.y), coef: d)
     let (e, fe) = makePresignature(point: point)
     self.e = e
     self.fe = fe

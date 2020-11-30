@@ -72,16 +72,3 @@ func multiply(_ lhs: BigInt, _ rhs: BigInt) -> BigInt {
   }
   return result
 }
-
-//func pow(_ elem: Element, power: Int) -> Element {
-//  assert(power >= 0)
-//  if power == 0 {
-//    return Element(bytes: [1])
-//  } else if power == 1 {
-//    return elem
-//  } else if power % 2 == 0 {
-//    return pow(elem * elem, power: power / 2)
-//  } else {
-//    return elem * pow(elem * elem, power: (power - 1) / 2)
-//  }
-//}
